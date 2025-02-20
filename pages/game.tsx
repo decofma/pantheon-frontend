@@ -4,7 +4,9 @@ import { GameContext } from '../contexts/GameContext';
 import GameBoard from '../components/GameBoard';
 
 const Game = () => {
-  const { token, gameState, setGameState } = useContext(GameContext);
+  const { token, 
+    // gameState, 
+    setGameState } = useContext(GameContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
