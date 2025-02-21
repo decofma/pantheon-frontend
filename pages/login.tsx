@@ -8,7 +8,8 @@ import api from "@/services/api";
 const Login = () => {
   const [usernameInput, setUsernameInput] = useState("");
   const [password, setPassword] = useState("");
-  const { token, setToken, setUsername } = useContext(GameContext);
+  const [error, setError] = useState('');
+  const { setToken, setUsername } = useContext(GameContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,8 +38,12 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("username", usernameInput);
       router.push("/menu");
-    } catch (error) {
-      console.error("Login failed", error);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.detail || 'Erro para criar conta' );
+      } else {
+        setError('Erro desconhecido');
+      }
     }
   };
 
@@ -62,8 +67,9 @@ const Login = () => {
         />
         <button type="submit">Entrar</button>
       </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };
 
-export default Login;
+export default Login; 
