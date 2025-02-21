@@ -1,19 +1,19 @@
 // pages/menu.tsx
-import { GameContext } from '@/contexts/GameContext';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import AccountMenu from '../components/AccountMenu';
 
 const Menu = () => {
   const router = useRouter();
-  const { token } = useContext(GameContext);
 
   return (
     <div className="container">
-      <h1>Menu</h1>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>Menu</h1>
+        <AccountMenu />
+      </header>
       <button onClick={() => router.push('/play-game')}>Play Game</button>
       <button onClick={() => router.push('/create-match')}>Create Match</button>
       <button onClick={() => router.push('/join-match')}>Join Match</button>
-      <button onClick={() =>  console.log("Token:", token)}>Test</button>
     </div>
   );
 };
