@@ -1,5 +1,4 @@
 import { useEffect, useContext, useState } from 'react';
-import axios from 'axios';
 import { GameContext } from '../contexts/GameContext';
 import GameBoard from '../components/GameBoard';
 import api from '../services/api';

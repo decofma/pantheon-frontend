@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react';
 import { GameContext } from '../contexts/GameContext';
-import axios from 'axios';
 import { motion } from 'framer-motion';
 import api from '../services/api';
 

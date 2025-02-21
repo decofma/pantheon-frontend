@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import { GameContext } from '../contexts/GameContext';
 import api from '../services/api';
 
