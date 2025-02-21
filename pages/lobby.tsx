@@ -1,18 +1,15 @@
 // pages/lobby.tsx
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import { GameContext } from '../contexts/GameContext';
 import { useRouter } from 'next/router';
 
 const Lobby = () => {
-  const { gameState, setGameState } = useContext(GameContext);
+  const { gameState } = useContext(GameContext);
   const router = useRouter();
-  const [players, setPlayers] = useState<string[]>(gameState?.players || []);
 
   useEffect(() => {
-    // Simula polling para verificar se a sala já está completa
     const interval = setInterval(() => {
       if (gameState && gameState.status === 'started') {
-        // A sala foi preenchida e o jogo iniciou
         router.push('/game');
       }
     }, 3000);

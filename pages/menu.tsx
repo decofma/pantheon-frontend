@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 const Menu = () => {
   const router = useRouter();
-  const { token, setGameState } = useContext(GameContext);
+  const { token } = useContext(GameContext);
 
   return (
     <div className="container">

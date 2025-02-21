@@ -1,29 +1,31 @@
-// pages/play-game.tsx
 import { useEffect, useContext, useState } from 'react';
+import axios from 'axios';
 import api from '../services/api';
 import { GameContext } from '../contexts/GameContext';
 import { useRouter } from 'next/router';
 
 const PlayGame = () => {
-  const { token, setGameState } = useContext(GameContext);
+  const { setGameState } = useContext(GameContext);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMatch = async () => {
       try {
-        const res = await api.post(`/matchmaking/join`, {}, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await api.post('/matchmaking/join', {});
         setGameState(res.data);
         setLoading(false);
         router.push('/game');
-      } catch (error) {
-        console.error("Erro ao buscar partida", error);
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          console.error("Erro ao buscar partida:", err.response?.data?.detail);
+        } else {
+          console.error("Erro desconhecido ao buscar partida");
+        }
       }
     };
     fetchMatch();
-  }, [token]);
+  }, [router, setGameState]);
 
   if (loading) return <div>Procurando partida...</div>;
 

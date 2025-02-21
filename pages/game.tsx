@@ -1,37 +1,38 @@
 import { useEffect, useContext, useState } from 'react';
+import axios from 'axios';
+import api from '../services/api';
 import { GameContext } from '../contexts/GameContext';
 import GameBoard from '../components/GameBoard';
-import api from '../services/api';
 
 const Game = () => {
-  const { token, 
-    // gameState, 
-    setGameState } = useContext(GameContext);
+  const { gameState, setGameState } = useContext(GameContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const joinMatchmaking = async () => {
+    const fetchGameState = async () => {
       try {
-        const res = await api.post('/matchmaking/join', {}, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await api.get(`/game/${gameState.game_id}/state`);
         setGameState(res.data);
         setLoading(false);
-      } catch (error) {
-        console.error("Error joining matchmaking", error);
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          console.error("Error fetching game state:", err.response?.data?.detail);
+        } else {
+          console.error("Unknown error fetching game state");
+        }
       }
-    }
-    joinMatchmaking();
-  }, [token]);
+    };
+    if (gameState) fetchGameState();
+  }, [gameState, setGameState]);
 
-  if (loading) return <div>Procurando adversário...</div>;
+  if (loading) return <div>Aguardando adversário...</div>;
 
   return (
     <div>
       <h1>Jogo em Andamento</h1>
       <GameBoard />
     </div>
-  )
-}
+  );
+};
 
 export default Game;

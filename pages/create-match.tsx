@@ -1,24 +1,26 @@
-// pages/create-match.tsx
 import { useState, useContext } from 'react';
-import api from '@/services/api';
+import axios from 'axios';
+import api from '../services/api';
 import { GameContext } from '../contexts/GameContext';
 import { useRouter } from 'next/router';
 
 const CreateMatch = () => {
   const [roomId, setRoomId] = useState('');
   const [error, setError] = useState('');
-  const { token, setGameState } = useContext(GameContext);
+  const { setGameState } = useContext(GameContext);
   const router = useRouter();
 
   const handleCreateMatch = async () => {
     try {
-      const res = await api.post(`/match/create`, { room_id: roomId }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await api.post('/match/create', { room_id: roomId });
       setGameState(res.data);
       router.push('/lobby');
-    } catch (err: any) {
-      setError(err.response?.data?.detail || 'Erro ao criar sala');
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.detail || 'Erro ao criar sala');
+      } else {
+        setError('Erro desconhecido');
+      }
     }
   };
 
