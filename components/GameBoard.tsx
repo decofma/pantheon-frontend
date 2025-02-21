@@ -12,7 +12,7 @@ const GameBoard = () => {
         move_type: "atacar", // Exemplo – altere conforme a jogada desejada
         data: { damage: 3 }
       };
-      const res = await axios.post(`http://localhost:8000/game/${gameState.game_id}/move`, move, {
+      const res = await axios.post(`/game/${gameState.game_id}/move`, move, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setGameState(res.data);
@@ -24,7 +24,7 @@ const GameBoard = () => {
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/game/${gameState.game_id}/state`, {
+        const res = await axios.get(`/game/${gameState.game_id}/state`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setGameState(res.data);

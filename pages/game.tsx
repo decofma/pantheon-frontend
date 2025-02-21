@@ -12,7 +12,7 @@ const Game = () => {
   useEffect(() => {
     const joinMatchmaking = async () => {
       try {
-        const res = await axios.post('http://localhost:8000/matchmaking/join', {}, {
+        const res = await axios.post('/matchmaking/join', {}, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setGameState(res.data);

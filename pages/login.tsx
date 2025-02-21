@@ -12,7 +12,7 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8000/auth/login', new URLSearchParams({
+      const res = await axios.post('/auth/login', new URLSearchParams({
         username,
         password
       }));

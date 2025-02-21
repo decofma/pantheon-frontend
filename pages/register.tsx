@@ -12,7 +12,7 @@ const Register = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8000/auth/register', { username, password });
+      const res = await axios.post('/auth/register', { username, password });
       setToken(res.data.access_token);
       router.push('/game');
     } catch (error) {
