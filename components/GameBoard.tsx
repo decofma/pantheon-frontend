@@ -1,3 +1,4 @@
+// frontend/components/GameBoard.tsx
 import { useContext, useEffect } from 'react';
 import { GameContext } from '../contexts/GameContext';
 import axios from 'axios';
@@ -10,7 +11,7 @@ const GameBoard = () => {
   const submitMove = async () => {
     try {
       const move = {
-        move_type: "atacar", // Exemplo – ajuste conforme a jogada desejada
+        move_type: "atacar", // Exemplo – ajuste conforme necessário
         data: { damage: 3 }
       };
       const res = await api.post(`/game/${gameState.game_id}/move`, move);
@@ -47,7 +48,7 @@ const GameBoard = () => {
         <div>
           {gameState?.log?.map((entry: string, index: number) => (
             <p key={index}>{entry}</p>
-          )) || <p>Nenhum log disponível</p>}
+          )) || <p>Aguardando primeiro movimento</p>}
         </div>
         <button onClick={submitMove}>Enviar Jogada</button>
       </motion.div>

@@ -1,20 +1,31 @@
-// pages/lobby.tsx
+// frontend/pages/lobby.tsx
 import { useEffect, useContext } from 'react';
 import { GameContext } from '../contexts/GameContext';
 import { useRouter } from 'next/router';
+import api from '../services/api';
 
 const Lobby = () => {
-  const { gameState } = useContext(GameContext);
+  const { gameState, setGameState } = useContext(GameContext);
   const router = useRouter();
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       if (gameState && gameState.status === 'started') {
         router.push('/game');
       }
     }, 3000);
     return () => clearInterval(interval);
   }, [gameState, router]);
+
+  const handleLeave = async () => {
+    try {
+      await api.post('/match/leave');
+      setGameState(null);
+      router.push('/menu');
+    } catch (error) {
+      console.error("Erro ao abandonar a partida", error);
+    }
+  };
 
   return (
     <div className="container">
@@ -27,6 +38,7 @@ const Lobby = () => {
         ))}
       </ul>
       <p>Aguardando o segundo jogador...</p>
+      <button onClick={handleLeave}>Abandonar Partida</button>
     </div>
   );
 };

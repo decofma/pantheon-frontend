@@ -14,7 +14,7 @@ const Register = () => {
     try {
       const res = await api.post('/auth/register', { username, password });
       setToken(res.data.access_token);
-      router.push('/game');
+      router.push('/menu');
     } catch (error) {
       console.error("Registration failed", error);
     }
