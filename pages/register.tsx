@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { GameContext } from '../contexts/GameContext';
+import api from '../services/api';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -12,7 +13,7 @@ const Register = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/auth/register', { username, password });
+      const res = await api.post('/auth/register', { username, password });
       setToken(res.data.access_token);
       router.push('/game');
     } catch (error) {

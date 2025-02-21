@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { GameContext } from '../contexts/GameContext';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import api from '../services/api';
 
 const GameBoard = () => {
   const { token, gameState, setGameState } = useContext(GameContext);
@@ -12,7 +13,7 @@ const GameBoard = () => {
         move_type: "atacar", // Exemplo – altere conforme a jogada desejada
         data: { damage: 3 }
       };
-      const res = await axios.post(`/game/${gameState.game_id}/move`, move, {
+      const res = await api.post(`/game/${gameState.game_id}/move`, move, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setGameState(res.data);
@@ -24,7 +25,7 @@ const GameBoard = () => {
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const res = await axios.get(`/game/${gameState.game_id}/state`, {
+        const res = await api.get(`/game/${gameState.game_id}/state`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setGameState(res.data);

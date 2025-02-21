@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import { GameContext } from '../contexts/GameContext';
 import GameBoard from '../components/GameBoard';
+import api from '../services/api';
 
 const Game = () => {
   const { token, 
@@ -12,7 +13,7 @@ const Game = () => {
   useEffect(() => {
     const joinMatchmaking = async () => {
       try {
-        const res = await axios.post('/matchmaking/join', {}, {
+        const res = await api.post('/matchmaking/join', {}, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setGameState(res.data);
