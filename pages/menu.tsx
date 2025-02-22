@@ -7,13 +7,15 @@ const Menu = () => {
 
   return (
     <div className="container">
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header>
         <h1>Menu</h1>
         <AccountMenu />
       </header>
-      <button onClick={() => router.push('/play-game')}>Play Game</button>
-      <button onClick={() => router.push('/create-match')}>Create Match</button>
-      <button onClick={() => router.push('/join-match')}>Join Match</button>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <button className="btn" onClick={() => router.push('/play-game')}>Play Game</button>
+        <button className="btn" onClick={() => router.push('/create-match')}>Create Match</button>
+        <button className="btn" onClick={() => router.push('/join-match')}>Join Match</button>
+      </div>
     </div>
   );
 };

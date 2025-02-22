@@ -1,4 +1,4 @@
-// frontend/pages/lobby.tsx
+// pages/lobby.tsx
 import { useEffect, useContext } from 'react';
 import { GameContext } from '../contexts/GameContext';
 import { useRouter } from 'next/router';
@@ -10,8 +10,12 @@ const Lobby = () => {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      if (gameState && gameState.status === 'started') {
-        router.push('/game');
+      try {
+        if (gameState && gameState.status === 'started') {
+          router.push('/game');
+        }
+      } catch (error) {
+        console.error("Erro ao consultar status da sala", error);
       }
     }, 3000);
     return () => clearInterval(interval);
@@ -38,7 +42,7 @@ const Lobby = () => {
         ))}
       </ul>
       <p>Aguardando o segundo jogador...</p>
-      <button onClick={handleLeave}>Abandonar Partida</button>
+      <button className="btn" onClick={handleLeave}>Abandonar Partida</button>
     </div>
   );
 };

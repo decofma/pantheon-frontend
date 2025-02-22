@@ -1,4 +1,4 @@
-// frontend/pages/join-match.tsx
+// pages/join-match.tsx
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import api from '../services/api';
@@ -33,12 +33,13 @@ const JoinMatch = () => {
     <div className="container">
       <h1>Join Match</h1>
       <input
+        className="input"
         type="text"
         placeholder="Room ID (4 dígitos)"
         value={roomId}
         onChange={e => setRoomId(e.target.value)}
       />
-      <button onClick={handleJoinMatch}>Entrar na Sala</button>
+      <button className="btn" onClick={handleJoinMatch}>Entrar na Sala</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );

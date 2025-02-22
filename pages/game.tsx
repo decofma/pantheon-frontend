@@ -1,4 +1,4 @@
-// frontend/pages/game.tsx
+// pages/game.tsx
 import { useEffect, useContext, useState } from 'react';
 import api from '../services/api';
 import { GameContext } from '../contexts/GameContext';
@@ -36,10 +36,10 @@ const Game = () => {
   if (loading) return <div>Aguardando adversário...</div>;
 
   return (
-    <div>
+    <div className="container">
       <h1>Jogo em Andamento</h1>
       <GameBoard />
-      <button onClick={handleLeave}>Abandonar Partida</button>
+      <button className="btn" onClick={handleLeave}>Abandonar Partida</button>
     </div>
   );
 };

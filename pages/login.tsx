@@ -1,24 +1,24 @@
 // pages/login.tsx
-import { useState, useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { GameContext } from "../contexts/GameContext";
-import api from "@/services/api";
+import { useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { GameContext } from '../contexts/GameContext';
+import api from '@/services/api';
 
 const Login = () => {
-  const [usernameInput, setUsernameInput] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState('');
+  const [usernameInput, setUsernameInput] = useState('');
+  const [password, setPassword] = useState('');
   const { setToken, setUsername } = useContext(GameContext);
   const router = useRouter();
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUsername = localStorage.getItem("username");
+    const storedToken = localStorage.getItem('token');
+    const storedUsername = localStorage.getItem('username');
     if (storedToken && storedUsername) {
       setToken(storedToken);
       setUsername(storedUsername);
-      router.push("/menu");
+      router.push('/menu');
     }
   }, [router, setToken, setUsername]);
 
@@ -35,14 +35,14 @@ const Login = () => {
       const token = res.data.access_token;
       setToken(token);
       setUsername(usernameInput);
-      localStorage.setItem("token", token);
-      localStorage.setItem("username", usernameInput);
-      router.push("/menu");
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', usernameInput);
+      router.push('/menu');
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.detail || 'Erro para criar conta' );
+        setError(err.response?.data?.detail || "Erro ao entrar na sala");
       } else {
-        setError('Erro desconhecido');
+        setError("Erro desconhecido");
       }
     }
   };
@@ -50,26 +50,28 @@ const Login = () => {
   return (
     <div className="container">
       <h1>Login</h1>
-      <form onSubmit={handleLogin}>
+      <form className="form" onSubmit={handleLogin}>
         <input
+          className="input"
           type="text"
           placeholder="Username"
           value={usernameInput}
-          onChange={(e) => setUsernameInput(e.target.value)}
+          onChange={e => setUsernameInput(e.target.value)}
           required
         />
         <input
+          className="input"
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Entrar</button>
+        <button className="btn" type="submit">Entrar</button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };
 
-export default Login; 
+export default Login;

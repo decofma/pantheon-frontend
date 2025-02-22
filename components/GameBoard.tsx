@@ -1,4 +1,4 @@
-// frontend/components/GameBoard.tsx
+// components/GameBoard.tsx
 import { useContext, useEffect } from 'react';
 import { GameContext } from '../contexts/GameContext';
 import axios from 'axios';
@@ -48,9 +48,9 @@ const GameBoard = () => {
         <div>
           {gameState?.log?.map((entry: string, index: number) => (
             <p key={index}>{entry}</p>
-          )) || <p>Aguardando primeiro movimento</p>}
+          )) || <p>Nenhum log disponível</p>}
         </div>
-        <button onClick={submitMove}>Enviar Jogada</button>
+        <button className="btn" onClick={submitMove}>Enviar Jogada</button>
       </motion.div>
     </div>
   );

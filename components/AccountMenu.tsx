@@ -20,22 +20,13 @@ const AccountMenu = () => {
 
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
-      <div onClick={handleToggle} style={{ cursor: 'pointer' }}>
+      <div onClick={handleToggle} style={{ cursor: 'pointer', fontSize: '1.5rem' }}>
         <span role="img" aria-label="user">👤</span>
       </div>
       {open && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          right: 0,
-          background: '#fff',
-          border: '1px solid #ccc',
-          padding: '10px',
-          borderRadius: '4px',
-          zIndex: 10,
-        }}>
+        <div className="tooltip">
           <p>{username}</p>
-          <button onClick={handleLogout}>Logout</button>
+          <button className="btn" onClick={handleLogout}>Logout</button>
         </div>
       )}
     </div>
