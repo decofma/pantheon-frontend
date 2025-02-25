@@ -4,6 +4,7 @@ import { GameContext } from "../contexts/GameContext";
 import api from "../services/api";
 import axios from "axios";
 import { motion } from "framer-motion";
+import router from "next/router";
 
 const GameBoard = () => {
   const { gameState, setGameState, username } = useContext(GameContext);
@@ -61,7 +62,12 @@ const GameBoard = () => {
       }
     }
   };
-
+  useEffect(() => {
+    if (!gameState?.players?.includes(username)) {
+      router.push('/menu');
+    }
+  }, [gameState, username, router]);
+  
   useEffect(() => {
     const interval = setInterval(async () => {
       try {

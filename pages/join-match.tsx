@@ -14,10 +14,12 @@ const JoinMatch = () => {
   const handleJoinMatch = async () => {
     try {
       const res = await api.post('/match/join', { room_id: roomId });
-      setGameState(res.data);
-      if (res.data.status === 'started') {
+      
+      if (res.data.status === 'started' && res.data.game_state) {
+        setGameState(res.data.game_state);
         router.push('/game');
       } else {
+        setGameState(res.data);
         router.push('/lobby');
       }
     } catch (err) {
